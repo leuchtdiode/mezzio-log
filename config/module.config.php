@@ -2,6 +2,7 @@
 namespace Log;
 
 use Log\Command\Rotate;
+use Log\Console\GlobalLogInitializer;
 use Psr\Log\LogLevel;
 
 return [
@@ -23,13 +24,16 @@ return [
 				'enabled'  => true,
 				'path'     => 'data/log/error.log',
 				'logLevel' => LogLevel::ERROR,
-			]
+			],
 		],
 	],
 
 	'console' => [
-		'commands' => [
-			Rotate::class
+		'commands'     => [
+			Rotate::class,
+		],
+		'initializers' => [
+			GlobalLogInitializer::class,
 		],
 	],
 ];
