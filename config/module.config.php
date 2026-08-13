@@ -14,8 +14,7 @@ return [
 	],
 
 	'log' => [
-		'rotateMinAgeSeconds' => 15 * 60,
-		'files'               => [
+		'files' => [
 			'main'  => [
 				'enabled'  => true,
 				'path'     => 'data/log/application.log',

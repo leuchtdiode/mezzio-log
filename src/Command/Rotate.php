@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Rotate extends Command
 {
-	private const string DELIMITER = '---';
+	const DELIMITER = '---';
 
 	public function __construct(
 		private readonly array $config
@@ -27,8 +27,6 @@ class Rotate extends Command
 	{
 		$rotates = $this->config['log']['rotate'] ?? [];
 
-		$minAgeSeconds = (int) ($this->config['log']['rotateMinAgeSeconds'] ?? 0);
-
 		$time = time();
 
 		foreach ($rotates as $rotateConfig)
@@ -37,13 +35,6 @@ class Rotate extends Command
 
 			foreach (glob($glob) as $path)
 			{
-				$modifiedTimestamp = filemtime($path);
-
-				if ($modifiedTimestamp === false || $modifiedTimestamp > $time - $minAgeSeconds)
-				{
-					continue;
-				}
-
 				$tmpPath = sprintf('%s%s%s.tmp', $path, self::DELIMITER, $time);
 				$newPath = sprintf('%s%s%s.gz', $path, self::DELIMITER, $time);
 
